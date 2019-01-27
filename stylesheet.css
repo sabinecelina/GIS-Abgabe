@@ -1,0 +1,54 @@
+html,
+body {
+	background: darkolivegreen;
+}
+
+#textblock{
+	width: 875px;
+	margin: 3rem auto;
+	padding: 1.5rem;
+	background: rgb(211, 176, 182);
+	border-top: 5px solid #440303;
+}
+
+#synth-pad {
+	margin: 0;
+	background-color: #000;
+}
+
+#synth-pad:hover {
+	cursor: crosshair;
+}
+
+#info {
+	text-align: center;
+}
+
+h1 {
+  font-weight: normal;        
+  font-size: 3vw;
+  font-family:'Chiller', Times, serif;
+  letter-spacing:0.2mm;
+  word-spacing:0.8mm;
+  text-align: center;
+}
+
+p {
+	line-height: 1.8rem;
+}
+
+.block:before,
+.block:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.block:after {
+  clear: both;
+}
+
+canvas {
+	margin: 0;
+	background-color: #000;
+}
