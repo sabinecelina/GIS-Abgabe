@@ -3,14 +3,6 @@ body {
 	background: darkolivegreen;
 }
 
-#textblock{
-	width: 875px;
-	margin: 3rem auto;
-	padding: 1.5rem;
-	background: rgb(211, 176, 182);
-	border-top: 5px solid #440303;
-}
-
 #synth-pad {
 	margin: 0;
 	background-color: #000;
@@ -46,9 +38,4 @@ p {
 
 .block:after {
   clear: both;
-}
-
-canvas {
-	margin: 0;
-	background-color: #000;
 }

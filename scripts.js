@@ -15,8 +15,6 @@ var SynthPad = (function() {
   var lowNote = 261.63; // C4
   var highNote = 493.88; // B4
  
-
-
   // Constructor
   var SynthPad = function() {
     synthesizer = document.getElementById('synth-pad');
@@ -24,33 +22,28 @@ var SynthPad = (function() {
     volume = document.getElementById('volume');
   
     // Create an audio context.
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    myAudioContext = new window.AudioContext();
-  
+    myAudioContext = new ( window.AudioContext || window.webkitAudioContext);
     SynthPad.setupEventListeners();
   };
-  
   
   // Event Listeners
   SynthPad.setupEventListeners = function() {
 
     synthesizer.addEventListener('mousedown', SynthPad.playSound);
-  
     synthesizer.addEventListener('mouseup', SynthPad.stopSound);
+    
     document.addEventListener('mouseleave', SynthPad.stopSound);
   };
   
   // Play a note.
-  SynthPad.playSound = function(event) {
+  SynthPad.playSound = function(evt) {
+    //The OscillatorNode interface represents a sine wave
     oscillator = myAudioContext.createOscillator();
     gainNode = myAudioContext.createGain();
-  
-    oscillator.type = 'triangle';
-  
     gainNode.connect(myAudioContext.destination);
     oscillator.connect(gainNode);
   
-    SynthPad.updateFrequency(event);
+    SynthPad.updateFrequency(evt);
   
     oscillator.start(0);
   
@@ -75,7 +68,6 @@ var SynthPad = (function() {
     return lowNote + noteOffset;
   };
   
-  
   // Calculate the volume.
   SynthPad.calculateVolume = function(posY) {
     var volumeLevel = 1 - (((100 / synthesizer.offsetHeight) * (posY - synthesizer.offsetTop)) / 100);
@@ -90,23 +82,23 @@ var SynthPad = (function() {
   
     oscillator.frequency.value = noteValue;
     gainNode.gain.value = volumeValue;
-  
+    
+  //change the HTML document with the right value of frequency and volume
     frequency.innerHTML = Math.floor(noteValue) + ' Hz';
     volume.innerHTML = Math.floor(volumeValue * 100) + '%';
   };
   
   
   // Update the note frequency.
-  SynthPad.updateFrequency = function(event) {
-    if (event.type == 'mousedown' || event.type == 'mousemove') {
-      SynthPad.calculateFrequency(event.x, event.y);
+  SynthPad.updateFrequency = function(evt) {
+    if (evt.type == 'mousedown' || evt.type == 'mousemove') {
+      SynthPad.calculateFrequency(evt.x, evt.y);
     }
   };
   
   // Export SynthPad.
   return SynthPad;
 })();
-
 
 // Initialize the page.
 window.onload = function() {
@@ -119,15 +111,25 @@ const context = canvas.getContext('2d');
 const objects = new Set();
 
 window.addEventListener('mousedown', onMouseDown);
+window.addEventListener('resize', resizeCanvas);
+
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 
 function getTime() {
     return 0.001 * (new Date().getTime());
 }
+function getTime() {
+    return 0.001 * (new Date().getTime());
+}
 
- //if mousedown draw circle
+ //if the mousebutton is down - draw circle
 function onMouseDown(evt) {
     const time = getTime();
-    const circle = new AnimatedObject(time, evt.clientX - 322, evt.clientY - 75);
+    const circle = new AnimatedObject(time, evt.clientX-4, evt.clientY-4);
     objects.add(circle);
     
     evt.preventDefault();
